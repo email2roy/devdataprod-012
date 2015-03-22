@@ -1,0 +1,16 @@
+{
+    "contents" : "\n# This is the user-interface definition of a Shiny web application.\n# You can find out more about building applications with Shiny here:\n#\n# http://shiny.rstudio.com\n#\n\nlibrary(shiny)\n\nairlines<-list(\"AA\"=\"AA\", \n               \"AS\"=\"AS\",\n               \"B6\"=\"B6\",\n               \"DL\"=\"DL\",\n               \"EV\"=\"EV\",\n               \"FL\"=\"FL\",\n               \"HA\"=\"HA\",\n               \"MQ\"=\"MQ\",\n               \"OO\"=\"OO\",\n               \"F9\"=\"F9\",\n               \"UA\"=\"UA\",\n               \"US\"=\"US\",\n               \"VX\"=\"VX\",\n               \"WN\"=\"WN\")\n\nairports<-list(\"John F. Kennedy International\"=12478,\n               \"Newark Liberty International\"=11618,\n               \"Chicago Midway International\"=13232,\n               \"Chicago O'Hare International\"=13930,\n              \"Los Angeles International\"=12892,\n              \"Las Vegas, McCarran International\"=12889,\n              \"Seattle Tacoma Internationl\"=14747,\n              \"San Francisco International\"=14771,\n              \"Norman Y. Mineta San Jose International\" = 14831,\n              \"Ronald Reagan Washington National\"=11278,\n              \"Hartsfield-Jackson Atlanta International\"=10397,\n              \"Miami International\"=13303)\n\nshinyUI(fluidPage(\n        \n        # Application title\n        titlePanel(\"Airline flight time between U.S. Major Airport\"),\n        \n        # Sidebar with a slider input for number of bins\n        sidebarLayout(\n                sidebarPanel(\n                        \n                        selectInput(\"from\", label = h3(\"From Airport\"), \n                                    choices = airports, selected = 1),\n                        selectInput(\"to\", label = h3(\"To Airport\"), \n                                    choices = airports, selected = 1),\n                        p(\"The data set is quite big, it will take some time to load.\")\n                ),\n                \n                # Show a plot of the generated distribution\n                mainPanel(\n                        textOutput(\"title\"),  \n                        hr(),\n                        plotOutput(\"boxPlot\"),\n                        hr(),\n                        p(\"This application is inspired by  \"),\n                        a(href=\"http://fivethirtyeight.com/interactives/flights/\",\"FiveThirtyEight.com - Fastest Flight\"),\n                        \n                        p(\"This application is using the March 2014 data and is downloaded from \"),\n                        a(href=\"http://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=236&DB_Short_Name=On-Time\",\"Bureau of Transportation Statistics\")\n                        \n                        \n                        \n                )\n                \n        )\n))\n",
+    "created" : 1426935943799.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1254322664",
+    "id" : "8149CF1",
+    "lastKnownWriteTime" : 1427046695,
+    "path" : "~/coursera/devdataprod-012/assignment1/flight/ui.R",
+    "project_path" : "ui.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

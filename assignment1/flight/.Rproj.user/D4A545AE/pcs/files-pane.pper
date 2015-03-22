@@ -1,0 +1,9 @@
+{
+    "path" : "~/coursera/devdataprod-012/assignment1/flight",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}

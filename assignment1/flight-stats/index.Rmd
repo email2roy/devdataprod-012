@@ -1,0 +1,82 @@
+---
+title       : Flight Statistics
+subtitle    : Finding out which airlines performs better
+author      : Roy
+job         : Coursera Student
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Why Flight Statistics?
+
+* FiveThirtyEight is one of my favorite website, I came across an article about Best Airline.
+* This is pretty intresting and I have downloaded the data and build my own version on shiny
+* I have trimmed down the data to just 12 major airports
+* The data I used in the application is March 2014 from Bureau of Transportation Statistics
+
+--- .class #id 
+
+## What does it do?
+
+* User can select the "from" and "to" airport on the sidebar
+* The application will automatically trim down the data and create a boxplot for all airline
+
+--- .class #id 
+
+## How to make this? (UI)
+
+* Building the UI - the sidebar
+```{r, eval=FALSE}
+# Select boxes
+selectInput("from", label = h3("From Airport"), choices = airports, selected = 1),
+selectInput("to", label = h3("To Airport"), choices = airports, selected= 1)
+```
+
+* Building the UI - the main panel
+```{r, eval=FALSE}
+# Title bar and the boxplot
+textOutput("title"),  
+hr(),
+plotOutput("boxPlot")
+```
+
+--- .class #id 
+
+## How to make this? (Server)
+* Load the data
+```{r, eval=FALSE}
+# Get the airport code to airport name data
+airports <- read.csv("L_AIRPORT_ID.csv",na.string="")
+#Load the actual data
+data <- read.csv("705002017_T_ONTIME_2014_3.csv",na.string="")     
+```
+
+* Get the input, filter the data and redraw the boxplot
+```{r, eval=FALSE}
+ trim <- data[data$ORIGIN_AIRPORT_ID==input$from & data$DEST_AIRPORT_ID==input$to,]
+if(nrow(trim)==0){
+output$title <- renderText(paste("No flight from ",
+airports[airports$Code==input$from,]$Description , " -to-> ",
+airports[airports$Code==input$to,]$Description ))                               
+}else{
+output$title <- renderText(paste("Statistics of flight from ",
+airports[airports$Code==input$from,]$Description , " -to-> ",
+airports[airports$Code==input$to,]$Description))                               
+boxplot(ACTUAL_ELAPSED_TIME~CARRIER,data=trim, main="Flight time against each airline", 
+ylab="Actual Elapsed Time in minutes", xlab="Airline")
+}
+```
+
+--- .class #id 
+## The result
+
+* Not all the airline got flight between any 2 of the airport
+* The boxplot shows the average time of all flight
+* Even it is the same flight, there are some differences between different airlines.
+* The actual flying time has a wide distribution, meaning it is very hard to predict the flight time.
+
+
